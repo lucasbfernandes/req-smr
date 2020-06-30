@@ -12,7 +12,7 @@ func SetRequest() error {
 		return err
 	}
 
-	db, err := atomix.GetDatabase(context.TODO(), "raft-database")
+	db, err := atomix.GetDatabase(context.TODO(), "raft")
 	if err != nil {
 		return err
 	}

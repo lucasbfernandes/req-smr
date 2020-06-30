@@ -13,7 +13,7 @@ func GetRequest() (*int64, error) {
 		return nil, err
 	}
 
-	db, err := atomix.GetDatabase(context.TODO(), "raft-database")
+	db, err := atomix.GetDatabase(context.TODO(), "raft")
 	if err != nil {
 		return nil, err
 	}
