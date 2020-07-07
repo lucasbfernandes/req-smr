@@ -28,7 +28,7 @@ jobs:
     - name: Build and push Docker images
       uses: docker/build-push-action@v1.0.1
       with:
-        path: ./samples/quiz-app/backend
+        path: ./
         username: ${{secrets.DOCKER_REGISTRY_USERNAME}}
         password: ${{secrets.DOCKER_REGISTRY_PASSWORD}}
         repository: req-smr
