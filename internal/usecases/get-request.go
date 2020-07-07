@@ -8,12 +8,12 @@ import (
 )
 
 func GetRequest() (*int64, error) {
-	atomix, err := client.New("localhost:5679")
+	atomix, err := client.New("atomix-controller.default.svc.cluster.local:5679")
 	if err != nil {
 		return nil, err
 	}
 
-	db, err := atomix.GetDatabase(context.TODO(), "raft")
+	db, err := atomix.GetDatabase(context.TODO(), "raft-database")
 	if err != nil {
 		return nil, err
 	}
