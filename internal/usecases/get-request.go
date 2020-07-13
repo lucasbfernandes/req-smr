@@ -3,19 +3,13 @@ package usecases
 import (
 	"context"
 	"fmt"
-
-	"github.com/atomix/go-client/pkg/client"
+	"req-smr/internal/services"
 )
 
 func GetRequest() (*int64, error) {
-	atomix, err := client.New("atomix-controller.default.svc.cluster.local:5679")
+	db, err := services.GetDatabase()
 	if err != nil {
-		return nil, err
-	}
-
-	db, err := atomix.GetDatabase(context.TODO(), "raft-database")
-	if err != nil {
-		return nil, err
+		return err
 	}
 
 	counter, err := db.GetCounter(context.TODO(), "my-counter")
