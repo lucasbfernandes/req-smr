@@ -9,7 +9,7 @@ import (
 func GetRequest() (*int64, error) {
 	db, err := services.GetDatabase()
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	counter, err := db.GetCounter(context.TODO(), "my-counter")
