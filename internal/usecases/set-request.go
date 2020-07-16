@@ -28,6 +28,6 @@ func SetRequest(rawData []byte) error {
 	}
 
 	log.Close(context.TODO())
-	fmt.Printf("FINISH:SET_APPEND INDEX: %d")
+	fmt.Println("FINISH:SET_APPEND")
 	return nil
 }
