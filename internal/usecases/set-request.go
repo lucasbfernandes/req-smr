@@ -7,7 +7,7 @@ import (
 	"req-smr/internal/services"
 )
 
-func SetRequest() error {
+func SetRequest(rawData []byte) error {
 	fmt.Println("START:SET_REQUEST")
 	db, err := services.GetDatabase()
 	if err != nil {
@@ -15,19 +15,19 @@ func SetRequest() error {
 		return err
 	}
 
-	counter, err := db.GetCounter(context.TODO(), "my-counter")
+	log, err := db.GetLog(context.TODO(), "request-logs")
 	if err != nil {
-		fmt.Printf("ERROR:GET_COUNTER_REFERENCE %s\n", err)
+		fmt.Printf("ERROR:GET_LOG_REFERENCE %s\n", err)
 		return err
 	}
 
-	err = counter.Set(context.TODO(), 10)
+	_, err = log.Append(context.TODO(), rawData)
 	if err != nil {
-		fmt.Printf("ERROR:SET_COUNTER %s\n", err)
+		fmt.Printf("ERROR:APPEND_LOG %s\n", err)
 		return err
 	}
 
-	counter.Close(context.TODO())
-	fmt.Println("FINISH:SET_REQUEST")
+	log.Close(context.TODO())
+	fmt.Printf("FINISH:SET_APPEND INDEX: %d")
 	return nil
 }

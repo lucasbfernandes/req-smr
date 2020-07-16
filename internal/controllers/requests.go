@@ -8,19 +8,25 @@ import (
 )
 
 func SetRequest(context *gin.Context) {
-	err := usecases.SetRequest()
+	rawData, err := context.GetRawData()
 	if err != nil {
 		fmt.Println(err)
-		context.JSON(500, gin.H{"error": "Could not set value"})
+		context.JSON(500, gin.H{"error": "Could not get raw data"})
+	}
+
+	err = usecases.SetRequest(rawData)
+	if err != nil {
+		fmt.Println(err)
+		context.JSON(500, gin.H{"error": "Could not set request"})
 	}
 	context.JSON(201, nil)
 }
 
-func GetRequest(context *gin.Context) {
-	counter, err := usecases.GetRequest()
+func GetRequests(context *gin.Context) {
+	entry, err := usecases.GetRequests()
 	if err != nil {
 		fmt.Println(err)
-		context.JSON(500, gin.H{"error": "Could not get value"})
+		context.JSON(500, gin.H{"error": "Could not get request"})
 	}
-	context.JSON(200, *counter)
+	context.JSON(200, entry)
 }
