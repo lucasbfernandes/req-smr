@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: req-smr
+  labels:
+    app: req-smr
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: req-smr
+  template:
+    metadata:
+      labels:
+        app: req-smr
+    spec:
+      containers:
+        - name: req-smr
+          image: lucasbfernandes/req-smr:v00
+          ports:
+            - containerPort: 8080
