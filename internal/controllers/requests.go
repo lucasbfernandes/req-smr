@@ -2,19 +2,20 @@ package controllers
 
 import (
 	"fmt"
+	"req-smr/internal/services"
 	"req-smr/internal/usecases"
 
 	"github.com/gin-gonic/gin"
 )
 
 func SetRequest(context *gin.Context) {
-	rawData, err := context.GetRawData()
+	request, err := services.BuildRequestObject(context.Request)
 	if err != nil {
 		fmt.Println(err)
-		context.JSON(500, gin.H{"error": "Could not get raw data"})
+		context.JSON(500, gin.H{"error": "Could not instantiate request object"})
 	}
 
-	err = usecases.SetRequest(rawData)
+	err = usecases.SetRequest(request)
 	if err != nil {
 		fmt.Println(err)
 		context.JSON(500, gin.H{"error": "Could not set request"})
