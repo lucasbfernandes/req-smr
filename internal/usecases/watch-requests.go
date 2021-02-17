@@ -35,8 +35,8 @@ func WatchRequests() error {
 
 func watchLogChanges(channel <-chan *log.Event) {
 	for {
-		fmt.Printf("START:WATCH_LOG_EVENT")
+		fmt.Printf("START:WAITING_LOG_EVENT\n")
 		event := <-channel
-		fmt.Printf("FINISH:WATCH_LOG_EVENT %s\n", event)
+		fmt.Printf("FINISH:WAITING_LOG_EVENT %+v\n", event)
 	}
 }

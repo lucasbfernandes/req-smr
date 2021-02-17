@@ -5,7 +5,7 @@ metadata:
   labels:
     app: req-smr
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: req-smr
@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: req-smr
-          image: lucasbfernandes/req-smr:v02
+          image: lucasbfernandes/req-smr:v03
           ports:
             - containerPort: 8080
