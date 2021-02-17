@@ -28,15 +28,23 @@ func WatchRequests() error {
 		fmt.Printf("ERROR:WATCH_LOG %s\n", err)
 		return err
 	}
-	go watchLogChanges(channel)
+
+	//go watchLogChanges(channel)
+	go func() {
+		for {
+			fmt.Printf("START:WAITING_LOG_EVENT\n")
+			event := <-channel
+			fmt.Printf("FINISH:WAITING_LOG_EVENT %s\n", event)
+		}
+	}()
 
 	return nil
 }
 
-func watchLogChanges(channel <-chan *log.Event) {
-	for {
-		fmt.Printf("START:WAITING_LOG_EVENT\n")
-		event := <-channel
-		fmt.Printf("FINISH:WAITING_LOG_EVENT %+v\n", event)
-	}
-}
+//func watchLogChanges(channel <-chan *log.Event) {
+//	for {
+//		fmt.Printf("START:WAITING_LOG_EVENT\n")
+//		event := <-channel
+//		fmt.Printf("FINISH:WAITING_LOG_EVENT %+v\n", event)
+//	}
+//}

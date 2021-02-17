@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: req-smr
-          image: lucasbfernandes/req-smr:v03
+          image: lucasbfernandes/req-smr:v04
           ports:
             - containerPort: 8080
