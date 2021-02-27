@@ -42,6 +42,7 @@ func (p *Proxy) printStats(req *http.Request, res *http.Response, duration time.
 }
 
 func (p *Proxy) forwardRequest(req *http.Request) (*http.Response, time.Duration, error) {
+	fmt.Printf("START:forwardRequest")
 	// Prepare the destination endpoint to forward the request to.
 	proxyUrl := fmt.Sprintf("http://127.0.0.1:%d%s", servicePort, req.RequestURI)
 
@@ -63,6 +64,7 @@ func (p *Proxy) forwardRequest(req *http.Request) (*http.Response, time.Duration
 }
 
 func (p *Proxy) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+	fmt.Printf("START:ServeHTTP")
 	// Forward the HTTP request to the destination service.
 	res, duration, err := p.forwardRequest(req)
 
