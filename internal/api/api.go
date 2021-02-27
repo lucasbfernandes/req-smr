@@ -9,7 +9,7 @@ import (
 
 const (
 	proxyPort   = 8080
-	servicePort = 8000
+	servicePort = 80
 )
 
 // Create a structure to define the proxy functionality.
