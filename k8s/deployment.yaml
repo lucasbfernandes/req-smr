@@ -14,8 +14,20 @@ spec:
       labels:
         app: req-smr
     spec:
+      initContainers:
+        - name: init-networking
+          image: lucasbfernandes/proxy-setup:v06
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+            privileged: true
       containers:
+        - name: service
+          image: kennethreitz/httpbin
+          ports:
+            - containerPort: 80
         - name: req-smr
-          image: lucasbfernandes/req-smr:v05
+          image: lucasbfernandes/req-smr:v06
           ports:
             - containerPort: 8080
