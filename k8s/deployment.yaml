@@ -16,18 +16,18 @@ spec:
     spec:
       initContainers:
         - name: init-networking
-          image: lucasbfernandes/proxy-setup:v09
+          image: lucasbfernandes/proxy-setup:v10
           securityContext:
             capabilities:
               add:
                 - NET_ADMIN
             privileged: true
       containers:
-        - name: service
-          image: kennethreitz/httpbin
+        - name: nodejs-app
+          image: lucasbfernandes/nodejs-app:v10
           ports:
             - containerPort: 80
         - name: req-smr
-          image: lucasbfernandes/req-smr:v09
+          image: lucasbfernandes/req-smr:v10
           ports:
             - containerPort: 8080
