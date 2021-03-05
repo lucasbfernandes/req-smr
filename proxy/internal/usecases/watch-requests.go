@@ -36,7 +36,7 @@ func WatchRequests() error {
 			fmt.Printf("START:WAITING_LOG_EVENT\n")
 			event := <-channel
 
-			fmt.Printf("STEP:BYTEARRAY_TO_REQUEST\n")
+			fmt.Printf("STEP:BYTEARRAY_TO_REQUEST %s\n", event)
 			request, err := services.ByteArrayToRequest(event.Entry.Value)
 			if err != nil {
 				fmt.Printf("ERROR:RECONSTRUCT_REQUEST %s\n", err)
