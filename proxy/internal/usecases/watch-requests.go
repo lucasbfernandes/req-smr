@@ -34,12 +34,14 @@ func WatchRequests() error {
 			fmt.Printf("START:WAITING_LOG_EVENT\n")
 			event := <-channel
 
+			fmt.Printf("STEP:BYTEARRAY_TO_REQUEST\n")
 			request, err := services.ByteArrayToRequest(event.Entry.Value)
 			if err != nil {
 				fmt.Printf("ERROR:RECONSTRUCT_REQUEST %s\n", err)
 				continue
 			}
 
+			fmt.Printf("STEP:FORWARD_REQUEST\n")
 			_, err = services.ForwardRequest(request)
 			if err != nil {
 				fmt.Printf("ERROR:FORWARD_REQUEST %s\n", err)
