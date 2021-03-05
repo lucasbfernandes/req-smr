@@ -36,6 +36,7 @@ func (proxy *Proxy) ServeHTTP(responseWriter http.ResponseWriter, httpRequest *h
 		return
 	}
 
+	// Return response to client
 	services.WriteResponse(responseWriter, res)
 
 	return
