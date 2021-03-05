@@ -1,5 +1,7 @@
 package constants
 
-var ProxyPort = 8080
+import "os"
 
-var ServicePort = 80
+var ProxyPort = os.Getenv("PROXY_PORT")
+
+var ServicePort = os.Getenv("SERVICE_PORT")
