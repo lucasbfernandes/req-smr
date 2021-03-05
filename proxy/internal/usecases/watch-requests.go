@@ -16,12 +16,14 @@ func WatchRequests() error {
 		return err
 	}
 
+	fmt.Printf("STEP:GET_LOG\n")
 	logPrimitive, err := db.GetLog(context.TODO(), "request-logs")
 	if err != nil {
 		fmt.Printf("ERROR:GET_LOG_REFERENCE %s\n", err)
 		return err
 	}
 
+	fmt.Printf("STEP:WATCH_LOG_CHANNEL\n")
 	channel := make(chan *log.Event)
 	err = logPrimitive.Watch(context.Background(), channel)
 	if err != nil {
