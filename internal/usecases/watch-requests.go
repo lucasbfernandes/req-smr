@@ -29,22 +29,26 @@ func WatchRequests() error {
 		return err
 	}
 
-	//go watchLogChanges(channel)
 	go func() {
 		for {
 			fmt.Printf("START:WAITING_LOG_EVENT\n")
 			event := <-channel
-			fmt.Printf("FINISH:WAITING_LOG_EVENT %s\n", event)
+
+			request, err := services.ByteArrayToRequest(event.Entry.Value)
+			if err != nil {
+				fmt.Printf("ERROR:RECONSTRUCT_REQUEST %s\n", err)
+				continue
+			}
+
+			_, err = services.ForwardRequest(request)
+			if err != nil {
+				fmt.Printf("ERROR:FORWARD_REQUEST %s\n", err)
+				continue
+			}
+
+			fmt.Printf("SUCCEEDED:FORWARD_REQUEST %s\n", request)
 		}
 	}()
 
 	return nil
 }
-
-//func watchLogChanges(channel <-chan *log.Event) {
-//	for {
-//		fmt.Printf("START:WAITING_LOG_EVENT\n")
-//		event := <-channel
-//		fmt.Printf("FINISH:WAITING_LOG_EVENT %+v\n", event)
-//	}
-//}
