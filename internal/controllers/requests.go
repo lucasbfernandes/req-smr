@@ -2,10 +2,8 @@ package controllers
 
 import (
 	"fmt"
-	"req-smr/internal/services"
-	"req-smr/internal/usecases"
-
 	"github.com/gin-gonic/gin"
+	"req-smr/internal/services"
 )
 
 func SetRequest(context *gin.Context) {
@@ -15,7 +13,7 @@ func SetRequest(context *gin.Context) {
 		context.JSON(500, gin.H{"error": "Could not instantiate request object"})
 	}
 
-	err = usecases.SetRequest(request)
+	err = services.SetRequest(request)
 	if err != nil {
 		fmt.Println(err)
 		context.JSON(500, gin.H{"error": "Could not set request"})
@@ -24,7 +22,7 @@ func SetRequest(context *gin.Context) {
 }
 
 func GetRequests(context *gin.Context) {
-	entry, err := usecases.GetRequests()
+	entry, err := services.GetRequests()
 	if err != nil {
 		fmt.Println(err)
 		context.JSON(500, gin.H{"error": "Could not get request"})

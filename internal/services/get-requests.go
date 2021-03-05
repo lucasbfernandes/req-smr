@@ -1,14 +1,13 @@
-package usecases
+package services
 
 import (
 	"context"
 	"fmt"
-	"req-smr/internal/services"
 )
 
 func GetRequests() (string, error) {
 	fmt.Println("START:GET_REQUEST")
-	db, err := services.GetDatabase()
+	db, err := GetDatabase()
 	if err != nil {
 		fmt.Printf("ERROR:GET_DATABASE %s\n", err)
 		return "", err

@@ -14,6 +14,8 @@ func BuildRequestObject(nativeRequest *http.Request) (*models.Request, error) {
 	}
 
 	request := &models.Request{
+		RequestURI: nativeRequest.RequestURI,
+		Host: nativeRequest.Host,
 		Method: nativeRequest.Method,
 		Url: nativeRequest.URL.String(),
 		Headers: nativeRequest.Header,

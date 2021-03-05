@@ -1,16 +1,14 @@
-package usecases
+package services
 
 import (
 	"context"
 	"fmt"
 	"req-smr/internal/models"
-
-	"req-smr/internal/services"
 )
 
 func SetRequest(request *models.Request) error {
 	fmt.Println("START:SET_REQUEST")
-	db, err := services.GetDatabase()
+	db, err := GetDatabase()
 	if err != nil {
 		fmt.Printf("ERROR:GET_DATABASE %s\n", err)
 		return err
@@ -22,7 +20,7 @@ func SetRequest(request *models.Request) error {
 		return err
 	}
 
-	serializedRequest, err := services.RequestToByteArray(request)
+	serializedRequest, err := RequestToByteArray(request)
 	if err != nil {
 		fmt.Printf("ERROR:SERIALIZE_REQUEST %s\n", err)
 		return err

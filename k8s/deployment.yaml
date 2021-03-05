@@ -16,7 +16,7 @@ spec:
     spec:
       initContainers:
         - name: init-networking
-          image: lucasbfernandes/proxy-setup:v07
+          image: lucasbfernandes/proxy-setup:v08
           securityContext:
             capabilities:
               add:
@@ -28,6 +28,6 @@ spec:
           ports:
             - containerPort: 80
         - name: req-smr
-          image: lucasbfernandes/req-smr:v07
+          image: lucasbfernandes/req-smr:v08
           ports:
             - containerPort: 8080
