@@ -9,5 +9,5 @@ import (
 
 func StartAPI() {
 	fmt.Printf("STEP:START_API_PORT: %s\n", constants.ProxyPort)
-	http.ListenAndServe(constants.ProxyPort, &usecases.Proxy{})
+	http.ListenAndServe(fmt.Sprintf(":%s", constants.ProxyPort), &usecases.Proxy{})
 }
