@@ -1,8 +1,11 @@
 package main
 
-import "req-smr/internal/usecases"
+import (
+	"req-smr/internal/api"
+	"req-smr/internal/usecases"
+)
 
 func main() {
 	usecases.WatchRequests()
-	// api.StartAPI()
+	api.StartAPI()
 }
