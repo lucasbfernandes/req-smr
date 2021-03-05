@@ -11,7 +11,7 @@ import (
 
 func ForwardRequest(request *models.Request) (*http.Response, error) {
 	// Prepare the destination endpoint to forward the request to.
-	proxyUrl := fmt.Sprintf("http://127.0.0.1:%d%s", constants.ServicePort, request.RequestURI)
+	proxyUrl := fmt.Sprintf("http://127.0.0.1:%s%s", constants.ServicePort, request.RequestURI)
 
 	// Create an HTTP client and a proxy request based on the original request.
 	httpClient := http.Client{}
