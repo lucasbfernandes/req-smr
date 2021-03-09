@@ -21,6 +21,8 @@ func ForwardRequest(request *models.Request) (*http.Response, error) {
 		return nil, err
 	}
 
+	proxyReq.Header = request.Headers
+
 	// Do request
 	res, err := httpClient.Do(proxyReq)
 	if err != nil {
