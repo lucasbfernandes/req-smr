@@ -15,7 +15,7 @@ func ForwardRequest(request *models.Request) (*http.Response, error) {
 
 	// Create an HTTP client and a proxy request based on the original request.
 	httpClient := http.Client{}
-	proxyReq, err := http.NewRequest(request.Method, proxyUrl, bytes.NewReader(request.Body))
+	proxyReq, err := http.NewRequest(request.Method, proxyUrl, bytes.NewBuffer(request.Body))
 	if err != nil {
 		fmt.Printf("ERROR:CREATE_NEW_REQUEST_OBJECT %s\n", err)
 		return nil, err
