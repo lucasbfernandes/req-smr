@@ -1,6 +1,7 @@
 package models
 
 type Request struct {
+	Id		   string				`json:"id"`
 	RequestURI string				`json:"requestURI"`
 	Host       string				`json:"host"`
 	Method 	   string				`json:"method"`

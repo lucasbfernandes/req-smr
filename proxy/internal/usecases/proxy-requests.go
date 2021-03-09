@@ -10,8 +10,11 @@ type Proxy struct{}
 
 func (proxy *Proxy) ServeHTTP(responseWriter http.ResponseWriter, httpRequest *http.Request) {
 
+	//requestId := uuid.New().String()
+	//services.RequestChanMap[requestId] = make(chan bool)
+
 	// Build request object
-	request, err := services.BuildRequestObject(httpRequest)
+	request, err := services.BuildRequestObject(httpRequest, "123")
 	if err != nil {
 		fmt.Printf("ERROR:BUILD_REQUEST_OBJECT %s\n", err)
 		// Return error message for client
@@ -27,6 +30,9 @@ func (proxy *Proxy) ServeHTTP(responseWriter http.ResponseWriter, httpRequest *h
 		http.Error(responseWriter, err.Error(), http.StatusBadGateway)
 		return
 	}
+
+	// Maybe add infinite loop with maximum execution time?
+	// <-services.RequestChanMap[requestId]
 
 	// Forward request
 	res, err := services.ForwardRequest(request)

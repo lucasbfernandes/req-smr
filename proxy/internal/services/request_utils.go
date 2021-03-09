@@ -7,13 +7,16 @@ import (
 	"req-smr/internal/models"
 )
 
-func BuildRequestObject(nativeRequest *http.Request) (*models.Request, error) {
+var RequestChanMap = make(map[string]chan bool)
+
+func BuildRequestObject(nativeRequest *http.Request, requestId string) (*models.Request, error) {
 	parsedBody, err := parseRequestBody(nativeRequest.Body)
 	if err != nil {
 		return nil, err
 	}
 
 	request := &models.Request{
+		Id: requestId,
 		RequestURI: nativeRequest.RequestURI,
 		Host: nativeRequest.Host,
 		Method: nativeRequest.Method,
