@@ -23,6 +23,7 @@ func ForwardRequest(request *models.Request) (*http.Response, error) {
 
 	proxyReq.Header = request.Headers
 
+	fmt.Printf("STEP:DO_REQUEST %s\n", proxyReq)
 	// Do request
 	res, err := httpClient.Do(proxyReq)
 	if err != nil {
@@ -34,6 +35,7 @@ func ForwardRequest(request *models.Request) (*http.Response, error) {
 }
 
 func WriteResponse(responseWriter http.ResponseWriter, res *http.Response) {
+	fmt.Println("STEP:WRITE_RESPONSE")
 	for name, values := range res.Header {
 		responseWriter.Header()[name] = values
 	}
@@ -41,4 +43,5 @@ func WriteResponse(responseWriter http.ResponseWriter, res *http.Response) {
 	responseWriter.WriteHeader(res.StatusCode)
 	io.Copy(responseWriter, res.Body)
 	res.Body.Close()
+	fmt.Println("STEP:WRITE_RESPONSE_SUCCEEDED")
 }

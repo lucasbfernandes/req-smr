@@ -14,6 +14,8 @@ func (proxy *Proxy) ServeHTTP(responseWriter http.ResponseWriter, httpRequest *h
 	//services.RequestChanMap[requestId] = make(chan bool)
 
 	// Build request object
+	fmt.Printf("STEP:INCOMING_REQUEST %s\n", httpRequest)
+	fmt.Println("STEP:BUILD_REQUEST_OBJECT")
 	request, err := services.BuildRequestObject(httpRequest, "123")
 	if err != nil {
 		fmt.Printf("ERROR:BUILD_REQUEST_OBJECT %s\n", err)
@@ -22,6 +24,7 @@ func (proxy *Proxy) ServeHTTP(responseWriter http.ResponseWriter, httpRequest *h
 		return
 	}
 
+	fmt.Println("STEP:PERSIST_LOG")
 	// Persist log (RAFT)
 	err = services.SetRequest(request)
 	if err != nil {
@@ -35,6 +38,7 @@ func (proxy *Proxy) ServeHTTP(responseWriter http.ResponseWriter, httpRequest *h
 	// <-services.RequestChanMap[requestId]
 
 	// Forward request
+	fmt.Println("STEP:PROXY_HTTP_FORWARD_REQUEST")
 	res, err := services.ForwardRequest(request)
 	if err != nil {
 		fmt.Printf("ERROR:FORWARD_REQUEST %s\n", err)
@@ -42,6 +46,7 @@ func (proxy *Proxy) ServeHTTP(responseWriter http.ResponseWriter, httpRequest *h
 		return
 	}
 
+	fmt.Println("STEP:PROXY_HTTP_WRITE_RESPONSE")
 	// Return response to client
 	services.WriteResponse(responseWriter, res)
 

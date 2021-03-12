@@ -9,7 +9,7 @@ import (
 )
 
 func WatchRequests() error {
-	fmt.Println("START:WATCH_REQUESTS")
+	fmt.Println("STEP:WATCH_REQUESTS")
 	db, err := services.GetDatabase()
 	if err != nil {
 		fmt.Printf("ERROR:GET_DATABASE %s\n", err)
@@ -33,7 +33,7 @@ func WatchRequests() error {
 
 	go func() {
 		for {
-			fmt.Printf("START:WAITING_LOG_EVENT\n")
+			fmt.Printf("STEP:WAITING_LOG_EVENT - channel: %s logPrimitive: %s\n", channel, logPrimitive)
 			event := <-channel
 
 			fmt.Printf("STEP:BYTE_ARRAY_TO_REQUEST %s\n", event)
@@ -50,7 +50,7 @@ func WatchRequests() error {
 				continue
 			}
 
-			fmt.Printf("SUCCEEDED:FORWARD_REQUEST %s\n", request)
+			fmt.Printf("STEP:FORWARD_REQUEST_SUCCEEDED %s\n", request)
 		}
 	}()
 
