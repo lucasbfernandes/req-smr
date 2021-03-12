@@ -13,6 +13,15 @@ func (proxy *Proxy) ServeHTTP(responseWriter http.ResponseWriter, httpRequest *h
 	//requestId := uuid.New().String()
 	//services.RequestChanMap[requestId] = make(chan bool)
 
+	lastEntry, err := services.GetRequests()
+	if err != nil {
+		fmt.Printf("ERROR:GET_LAST_ENTRY %s\n", err)
+		// Return error message for client
+		http.Error(responseWriter, err.Error(), http.StatusBadGateway)
+		return
+	}
+	fmt.Printf("STEP:LAST_ENTRY: %s\n", lastEntry)
+
 	// Build request object
 	fmt.Printf("STEP:INCOMING_REQUEST %s\n", httpRequest)
 	fmt.Println("STEP:BUILD_REQUEST_OBJECT")
