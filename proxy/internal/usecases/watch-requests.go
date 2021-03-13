@@ -43,14 +43,19 @@ func WatchRequests() error {
 				continue
 			}
 
-			fmt.Printf("STEP:FORWARD_REQUEST\n")
-			_, err = services.ForwardRequest(request)
-			if err != nil {
-				fmt.Printf("ERROR:FORWARD_REQUEST %s\n", err)
-				continue
+			fmt.Printf("STEP:CHECK_REQUEST_ORIGIN\n")
+			if _, isPresent := services.RequestChanMap[request.Id]; isPresent {
+				fmt.Printf("STEP:SAME_PROXY_REQUEST Id: %s\n", request.Id)
+				services.RequestChanMap[request.Id] <- true
+			} else {
+				fmt.Printf("STEP:DIFFERENT_PROXY_REQUEST\n")
+				_, err = services.ForwardRequest(request)
+				if err != nil {
+					fmt.Printf("ERROR:FORWARD_REQUEST %s\n", err)
+					continue
+				}
+				fmt.Printf("STEP:FORWARD_REQUEST_SUCCEEDED %s\n", request)
 			}
-
-			fmt.Printf("STEP:FORWARD_REQUEST_SUCCEEDED %s\n", request)
 		}
 	}()
 
