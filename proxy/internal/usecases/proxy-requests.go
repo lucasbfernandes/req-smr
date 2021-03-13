@@ -27,7 +27,7 @@ func (proxy *Proxy) ServeHTTP(responseWriter http.ResponseWriter, httpRequest *h
 	// Build request object
 	fmt.Printf("STEP:INCOMING_REQUEST %s\n", httpRequest)
 	fmt.Println("STEP:BUILD_REQUEST_OBJECT")
-	request, err := services.BuildRequestObject(httpRequest, "123")
+	request, err := services.BuildRequestObject(httpRequest, requestId)
 	if err != nil {
 		fmt.Printf("ERROR:BUILD_REQUEST_OBJECT %s\n", err)
 		// Return error message for client
