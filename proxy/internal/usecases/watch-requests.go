@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"req-smr/internal/services"
 
-	"github.com/atomix/go-client/pkg/client/log"
+	"github.com/lucasbfernandes/go-client/pkg/client/log"
 )
 
 func WatchRequests() error {

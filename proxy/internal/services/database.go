@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/atomix/go-client/pkg/client"
+	"github.com/lucasbfernandes/go-client/pkg/client"
 )
 
 var dbInstance *client.Database
