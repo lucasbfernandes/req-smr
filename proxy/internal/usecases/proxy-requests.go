@@ -14,6 +14,8 @@ func (proxy *Proxy) ServeHTTP(responseWriter http.ResponseWriter, httpRequest *h
 	requestId := uuid.New().String()
 	services.RequestChanMap[requestId] = make(chan bool)
 
+	fmt.Printf("STEP:SET_REQUEST_ID %s\n", requestId)
+
 	// TODO remove this when possible
 	lastEntry, err := services.GetRequests()
 	if err != nil {
