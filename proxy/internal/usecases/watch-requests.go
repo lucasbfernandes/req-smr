@@ -32,6 +32,7 @@ func WatchRequests() error {
 	}
 
 	go func() {
+		defer afterAsyncWatch()
 		for {
 			fmt.Printf("STEP:WAITING_LOG_EVENT - channel: %s logPrimitive: %s\n", channel, logPrimitive)
 			event := <-channel
@@ -60,4 +61,8 @@ func WatchRequests() error {
 	}()
 
 	return nil
+}
+
+func afterAsyncWatch() {
+	fmt.Printf("STEP:ASYNC_WATCH_FUNC_ENDED\n")
 }
