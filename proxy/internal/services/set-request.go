@@ -33,7 +33,6 @@ func SetRequest(request *models.Request) error {
 		return err
 	}
 
-	log.Close(context.TODO())
 	fmt.Println("FINISH:SET_APPEND")
 	return nil
 }

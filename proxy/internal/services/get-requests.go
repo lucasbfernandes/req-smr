@@ -18,7 +18,6 @@ func GetRequests() (string, error) {
 		fmt.Printf("ERROR:GET_COUNTER_REFERENCE %s\n", err)
 		return "", err
 	}
-	defer log.Close(context.TODO())
 
 	entry, err := log.LastEntry(context.TODO())
 	if err != nil {

@@ -13,14 +13,14 @@ helm install raft-storage-controller .
 
 echo "Installing raft-database (default namespace)"
 cd ../raft-database
-helm install raft-database
+helm install raft-database .
 
 echo "Cloning req-smr repository"
 cd ../../
 git clone https://github.com/lucasbfernandes/req-smr.git
 
 echo "Installing req-smr (default namespace)"
-cd req-smr/install/helm-charts
+cd req-smr/install/helm-chart
 helm install req-smr .
 
 echo "Done."
