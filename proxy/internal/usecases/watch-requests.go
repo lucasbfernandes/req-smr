@@ -2,15 +2,17 @@ package usecases
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
+	"req-smr/internal/models"
 	"req-smr/internal/services"
 
-	"github.com/lucasbfernandes/go-client/pkg/client/log"
+	"github.com/atomix/go-client/pkg/client/log"
 )
 
 func WatchRequests() error {
 	fmt.Println("STEP:WATCH_REQUESTS")
-	db, err := services.GetDatabase()
+	db, err := services.GetRaftDatabaseInstance()
 	if err != nil {
 		fmt.Printf("ERROR:GET_DATABASE %s\n", err)
 		return err
@@ -32,13 +34,12 @@ func WatchRequests() error {
 	}
 
 	go func() {
-		defer afterAsyncWatch()
 		for {
 			fmt.Printf("STEP:WAITING_LOG_EVENT - channel: %s logPrimitive: %s\n", channel, logPrimitive)
 			event := <-channel
 
 			fmt.Printf("STEP:BYTE_ARRAY_TO_REQUEST %s\n", event)
-			request, err := services.ByteArrayToRequest(event.Entry.Value)
+			request, err := byteArrayToRequest(event.Entry.Value)
 			if err != nil {
 				fmt.Printf("ERROR:RECONSTRUCT_REQUEST %s\n", err)
 				continue
@@ -63,6 +64,11 @@ func WatchRequests() error {
 	return nil
 }
 
-func afterAsyncWatch() {
-	fmt.Printf("STEP:ASYNC_WATCH_FUNC_ENDED\n")
+func byteArrayToRequest(serializedRequest []byte) (*models.Request, error) {
+	var request models.Request
+	err := json.Unmarshal(serializedRequest, &request)
+	if err != nil {
+		return nil, err
+	}
+	return &request, nil
 }

@@ -5,14 +5,14 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/lucasbfernandes/go-client/pkg/client"
+	"github.com/atomix/go-client/pkg/client"
 )
 
 var dbInstance *client.Database
 var syncError error
 var once sync.Once
 
-func GetDatabase() (*client.Database, error) {
+func GetRaftDatabaseInstance() (*client.Database, error) {
 	fmt.Println("STEP:GET_ATOMIX_DB")
 	once.Do(func() {
 		fmt.Println("STEP:CREATE_ATOMIX_CONNECTION")
